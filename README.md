@@ -1,16 +1,33 @@
-# PHP Project Template
+# Interaction
 
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require dbt/php-project
+composer require dbt/interaction
+```
+
+You can publish the migration with:
+
+```bash
+php artisan vendor:publish --provider="Dbt\Interaction\InteractionServiceProvider" --tag="dbt-interaction-migration"
+```
+
+After publishing the migration you can create an interaction log table using 
+
+```bash
+php artisan migrate
+```
+
+You can publish interaction's config file using:
+```bash
+php artisan vendor:publish --provider="Dbt\Interaction\InteractionServiceProvider" --tag="dbt-interaction-config"
 ```
 
 ## Usage
 
-Change the project name and namespaces in `composer.json` and also in `UnitTestCase` and away you go. 
+
 
 ## Etc.
 
