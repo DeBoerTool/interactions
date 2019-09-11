@@ -18,7 +18,7 @@ use Illuminate\Support\Collection;
  * @method static Builder inLog($log)
  * @method static Builder causerIs($model)
  */
-class InteractionModel extends Model implements InteractionModelInterface
+class Activity extends Model implements InteractionModelInterface
 {
     use SoftDeletes;
 
