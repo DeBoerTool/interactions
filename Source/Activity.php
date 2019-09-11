@@ -14,7 +14,7 @@ use Illuminate\Support\Collection;
  * @property \Illuminate\Support\Collection properties
  * @property string description
  * @property string log_name
- * @package Dbt\Interaction
+ * @package Dbt\Interactions
  * @method static Builder inLog($log)
  * @method static Builder causerIs($model)
  */
@@ -22,14 +22,10 @@ class Activity extends Model implements InteractionModelInterface
 {
     use SoftDeletes;
 
-    protected $table = 'interaction_log';
-
-    // public function bind(string $connection, string $table)
-    // {
-    //     dd('Calling bind');
-    //     $this->setConnection($connection);
-    //     $this->setTable(config('interaction.table_name'));
-    // }
+    public function __construct()
+    {
+        $this->table = config('interaction.table_name');
+    }
 
     /**
      * Non-mass-assignable attributes
