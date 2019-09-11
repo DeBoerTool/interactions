@@ -1,5 +1,5 @@
 {
-    "name": "dbt/php-project",
+    "name": "dbt/interactions",
     "description": "PHP Project Scaffolding",
     "keywords": [
         "dbt",
@@ -16,23 +16,23 @@
         }
     ],
     "require": {
-        "php": "^7.2"
+        "php": "^7.2",
+        "illuminate/support": "5.8.*"
     },
     "require-dev": {
-      "friendsofphp/php-cs-fixer": "^2.15",
-      "ext-pcov": "*",
-      "larapack/dd": "^1.1",
-      "phpunit/phpunit": "^7.0",
-      "vimeo/psalm": "^3.1"
+        "friendsofphp/php-cs-fixer": "^2.15",
+        "larapack/dd": "^1.1",
+        "phpunit/phpunit": "^7.0",
+        "vimeo/psalm": "^3.1"
     },
     "autoload": {
         "psr-4": {
-            "Dbt\\PhpProject\\": "Source"
+            "Dbt\\Interactions\\": "Source"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Dbt\\PhpProject\\Tests\\": "Tests"
+            "Dbt\\Interactions\\Tests\\": "Tests"
         }
     },
     "scripts": {
@@ -44,5 +44,12 @@
     "config": {
         "sort-packages": true,
         "vendor-dir": "Vendor"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dbt\\Interactions\\Providers\\InteractionServiceProvider"
+            ]
+        }
     }
 }
