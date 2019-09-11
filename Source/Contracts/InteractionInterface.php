@@ -2,7 +2,7 @@
 
 namespace Dbt\Interactions\Contracts;
 
-use Dbt\Interfaces\Models\InteractionModelInterface;
+use Dbt\Interactions\Contracts\InteractionModelInterface;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 
