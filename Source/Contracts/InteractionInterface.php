@@ -26,10 +26,8 @@ interface InteractionInterface
 
     /**
      * The log name.
-     * 
-     * @param Dbt\Interactions\Log|string $log
      */
-    public function in($log): self;
+    public function in(Log $log): self;
 
     /**
      * Persist the change with optional description.

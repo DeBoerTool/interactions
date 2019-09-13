@@ -21,4 +21,8 @@ return [
         'INTERACTION_LOG_DB_CONNECTION',
         env('DB_CONNECTION', 'mysql')
     ),
+
+    'logs' => [
+        Dbt\Interactions\Log::class,
+    ]
 ];

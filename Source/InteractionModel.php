@@ -63,9 +63,9 @@ class InteractionModel extends Model implements InteractionModelInterface
     /**
      * @inheritDoc
      */
-    public function log(): string
+    public function log(): Log
     {
-        return $this->log_name;
+        return (new LogFactory())->create($this->log_name);
     }
 
     /**
@@ -99,15 +99,9 @@ class InteractionModel extends Model implements InteractionModelInterface
     /**
      * @inheritDoc
      */
-    public function setLog($log): InteractionModelInterface
+    public function setLog(Log $log): InteractionModelInterface
     {
-        if (is_string($log) && class_exists($log)) {
-            $log = new $log;
-        }
-
-        $name = $log instanceof Log ? $log->getName() : $log;
-
-        $this->setAttribute('log_name', $name);
+        $this->setAttribute('log_name', $log->getName());
 
         return $this;
     }

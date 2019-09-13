@@ -2,8 +2,10 @@
 
 namespace Dbt\Interactions\Traits;
 
+use Dbt\Interactions\LogFactory;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 trait InteractionScopes
 {
@@ -24,18 +26,11 @@ trait InteractionScopes
             ->where('subject_id', $subject->getKey());
     }
 
-    public function scopeNameLike(Builder $query, $name)
-    {
-        return $query->where('log_name', 'like', '%' . $name . '%');
-    }
-
     /**
      * TODO: Check if this actually works.
      */
-    public function scopeCauserIs(Builder $query, $model)
+    public function scopeCauserIs(Builder $query,  $model)
     {
-        $this->causer = $model;
-
         /**
          * TODO: Does this work for all polymorphic identities, eg, both FQCNs
          *
@@ -46,11 +41,15 @@ trait InteractionScopes
     /**
      * @param  array|string  ...$logNames
      */
-    public function scopeInLog(Builder $query, ...$logNames): Builder
+    public function scopeInLog(Builder $query, ...$logs): Builder
     {
-        if (is_array($logNames[0])) {
-            $logNames = $logNames[0];
+        if (is_array($logs[0])) {
+            $logs = $logs[0];
         }
+
+        $logNames = array_map(function ($log) {
+            return $log->getName();
+        }, $logs);
 
         return $query->whereIn('log_name', $logNames);
     }

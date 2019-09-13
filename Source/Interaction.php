@@ -22,13 +22,14 @@ class Interaction implements InteractionInterface
     /** @var Authenticatable|Model */
     private $user;
 
-    /** @var string */
-    private $log = 'default';
+    /** @var Dbt\Interactions\Log */
+    private $log;
 
     public function __construct(InteractionModelInterface $model)
     {
         $this->model = $model;
         $this->properties = new Collection;
+        $this->log = new Log;
     }
 
     /**
@@ -66,7 +67,7 @@ class Interaction implements InteractionInterface
     /**
      * @inheritDoc
      */
-    public function in($log): InteractionInterface
+    public function in(Log $log): InteractionInterface
     {
         $this->log = $log;
 

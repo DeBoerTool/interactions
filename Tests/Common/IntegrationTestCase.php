@@ -67,17 +67,23 @@ abstract class IntegrationTestCase extends TestCase
         include_once __DIR__ . '/../../Migrations/create_interactions_table.php.stub';
     }
 
-    private function createModels ()
+    private function createModels()
     {
         foreach (self::models() as $params) {
             self::createModel(...$params);
         }
     }
 
-    private function configureDatabase (Repository $config): void
+    private function configureDatabase(Repository $config): void
     {
         $config->set('interaction.table_name', $this->table);
         $config->set('interaction.database_connection', $this->database);
+        $config->set('interaction.logs', [
+            \Dbt\Interactions\Log::class,
+            \Dbt\Interactions\Tests\Common\Fixtures\Logs\UserLog::class,
+            \Dbt\Interactions\Tests\Common\Fixtures\Logs\PostLog::class,
+            \Dbt\Interactions\Tests\Common\Fixtures\Logs\InventoryUpdateLog::class,
+        ]);
         $config->set('database.default', $this->database);
         $config->set('database.connections.' . $this->database, [
             'driver' => env('DB_DRIVER'),
@@ -87,7 +93,7 @@ abstract class IntegrationTestCase extends TestCase
         ]);
     }
 
-    private function migrateDatabase ()
+    private function migrateDatabase()
     {
         (new CreateInteractionsTable())->up();
 
@@ -96,7 +102,7 @@ abstract class IntegrationTestCase extends TestCase
         }
     }
 
-    private static function migrations (): array
+    private static function migrations(): array
     {
         return [
             ['users', function (Blueprint $table) {
@@ -111,7 +117,7 @@ abstract class IntegrationTestCase extends TestCase
         ];
     }
 
-    private static function models (): array
+    private static function models(): array
     {
         return [
             [new User(), ['email' => 'test-user@example.com']],
@@ -119,12 +125,12 @@ abstract class IntegrationTestCase extends TestCase
         ];
     }
 
-    private static function migrate (DB $db, string $name, Closure $migration): void
+    private static function migrate(DB $db, string $name, Closure $migration): void
     {
         $db->getSchemaBuilder()->create($name, $migration);
     }
 
-    private static function createModel (Model $model, array $attrs): void
+    private static function createModel(Model $model, array $attrs): void
     {
         $model::query()->create($attrs);
     }

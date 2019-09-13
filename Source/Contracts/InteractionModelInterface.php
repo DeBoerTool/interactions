@@ -32,7 +32,7 @@ interface InteractionModelInterface
     /**
      * Get the log name.
      */
-    public function log(): string;
+    public function log(): Log;
 
     /**
      * Get the description.
@@ -56,8 +56,6 @@ interface InteractionModelInterface
 
     /**
      * Set the log name.
-     * 
-     * @param Dbt\Interactions\Log|string $log
      */
-    public function setLog($log): self;
+    public function setLog(Log $log): self;
 }
