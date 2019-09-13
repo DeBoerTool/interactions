@@ -2,10 +2,11 @@
 
 namespace Dbt\Interactions\Tests\Integration;
 
-use Dbt\Interactions\InteractionModel;
 use Dbt\Interactions\Interaction;
-use Dbt\Interactions\Tests\Common\IntegrationTestCase;
 use Dbt\Interactions\Tests\Common\Fixtures\User;
+use Dbt\Interactions\Contracts\InteractionInterface;
+use Dbt\Interactions\Tests\Common\IntegrationTestCase;
+use Dbt\Interactions\Tests\Common\Fixtures\Interaction as InteractionModel;
 
 class InteractionModelTest extends IntegrationTestCase
 {
@@ -15,14 +16,19 @@ class InteractionModelTest extends IntegrationTestCase
     protected function setUp(): void
     {
         parent::setUp();
+
+        $this->app->bind(InteractionInterface::class, function () {
+            return new Interaction(new InteractionModel());
+        });
+
         $this->interaction = new Interaction(new InteractionModel());
     }
 
     /** @test */
     public function list_all_the_activities()
     {
-        (new Interaction(new InteractionModel))->in('users')->save('New user added');
-        (new Interaction(new InteractionModel))->in('not-in-users')->save('New post added');
+        $this->app->make(InteractionInterface::class)->in('users')->save('New user added');
+        $this->app->make(InteractionInterface::class)->in('not-in-users')->save('New post added');
 
         $activities = InteractionModel::query()->get();
 
@@ -33,8 +39,8 @@ class InteractionModelTest extends IntegrationTestCase
     /** @test */
     public function scopes_the_activity_by_name()
     {
-        (new Interaction(new InteractionModel))->in('users')->save('New user added');
-        (new Interaction(new InteractionModel))->in('not-in-users')->save('New post added');
+        $this->app->make(InteractionInterface::class)->in('users')->save('New user added');
+        $this->app->make(InteractionInterface::class)->in('not-in-users')->save('New post added');
 
         $activities = InteractionModel::inLog('users')->get();
         $this->assertCount(1, $activities);
@@ -44,7 +50,7 @@ class InteractionModelTest extends IntegrationTestCase
     public function get_the_property_by_name()
     {
         $properties = ['adjustment' => 12, 'action' => 'Add'];
-        (new Interaction(new InteractionModel))->with($properties)->save('Inventory updated');
+        $this->app->make(InteractionInterface::class)->with($properties)->save('Inventory updated');
 
         $activity = InteractionModel::query()->first();
 
@@ -57,8 +63,8 @@ class InteractionModelTest extends IntegrationTestCase
     {
         $john = User::query()->create(['email' => 'John@example.com']);
         $jane = User::query()->create(['email' => 'jane@example.com']);
-        $interactionByJohn = (new Interaction(new InteractionModel))->by($john)->in('users')->save('New user added');
-        $interactionByJane = (new Interaction(new InteractionModel))->by($jane)->in('users')->save('New user added');
+        $interactionByJohn = $this->app->make(InteractionInterface::class)->by($john)->in('users')->save('New user added');
+        $interactionByJane = $this->app->make(InteractionInterface::class)->by($jane)->in('users')->save('New user added');
 
         $johnsInteractions = InteractionModel::causedBy($john)->get();
 
@@ -69,17 +75,17 @@ class InteractionModelTest extends IntegrationTestCase
     public function get_the_changes_attribute_return_the_property_with_name_attribute_and_old()
     {
         $properties = [
-            'attributes' => ['name' => 'Sanjit Singh'],
-            'old' => ['name' => 'Sanjit'],
+            'attributes' => ['name' => 'Jane Doe'],
+            'old' => ['name' => 'Jane'],
             'other' => 'Other value'
         ];
-        (new Interaction(new InteractionModel))->with($properties)->save('User name updated');
+        $this->app->make(InteractionInterface::class)->with($properties)->save('User name updated');
 
         $activity = InteractionModel::query()->first();
 
         $this->assertEquals([
-            'attributes' => ['name' => 'Sanjit Singh'],
-            'old' => ['name' => 'Sanjit'],
+            'attributes' => ['name' => 'Jane Doe'],
+            'old' => ['name' => 'Jane'],
         ], $activity->getChangesAttribute()->toArray());
     }
 }
