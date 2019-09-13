@@ -3,6 +3,7 @@
 namespace Dbt\Interactions;
 
 use Dbt\Interactions\Contracts\InteractionModelInterface;
+use Dbt\Interactions\Log;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
@@ -98,9 +99,15 @@ class InteractionModel extends Model implements InteractionModelInterface
     /**
      * @inheritDoc
      */
-    public function setLog(string $log): InteractionModelInterface
+    public function setLog($log): InteractionModelInterface
     {
-        $this->setAttribute('log_name', $log);
+        if (is_string($log) && class_exists($log)) {
+            $log = new $log;
+        }
+
+        $name = $log instanceof Log ? $log->getName() : $log;
+
+        $this->setAttribute('log_name', $name);
 
         return $this;
     }

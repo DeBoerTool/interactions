@@ -2,6 +2,7 @@
 
 namespace Dbt\Interactions\Contracts;
 
+use Dbt\Interactions\Log;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Collection;
 
@@ -55,6 +56,8 @@ interface InteractionModelInterface
 
     /**
      * Set the log name.
+     * 
+     * @param Dbt\Interactions\Log|string $log
      */
-    public function setLog(string $log): self;
+    public function setLog($log): self;
 }

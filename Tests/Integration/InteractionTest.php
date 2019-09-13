@@ -2,25 +2,17 @@
 
 namespace Dbt\Interactions\Tests\Integration;
 
-use Dbt\Interactions\InteractionModel;
-use Dbt\Interactions\Interaction;
+use Dbt\Interactions\Contracts\InteractionInterface;
+use Dbt\Interactions\Log;
+use Dbt\Interactions\Tests\Common\Fixtures\Logs\InventoryUpdateLog;
 use Dbt\Interactions\Tests\Common\IntegrationTestCase;
 
 class InteractionTest extends IntegrationTestCase
 {
-    /** @var \Dbt\Interactions\Interaction */
-    private $interaction;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->interaction = new Interaction(new InteractionModel);
-    }
-
     /** @test */
     public function create_a_log_entry()
     {
-        $this->interaction->save('Test Interaction');
+        $this->app->make(InteractionInterface::class)->save('Test Interaction');
 
         $this->assertInteractionsTableHas([
             'description' => 'Test Interaction'
@@ -30,7 +22,7 @@ class InteractionTest extends IntegrationTestCase
     /** @test */
     public function log_can_have_a_causer()
     {
-        $this->interaction->by($this->testUser)->save('Log with test user');
+        $this->app->make(InteractionInterface::class)->by($this->testUser)->save('Log with test user');
 
         $this->assertInteractionsTableHas([
             'description' => 'Log with test user',
@@ -42,8 +34,7 @@ class InteractionTest extends IntegrationTestCase
     /** @test */
     public function log_can_have_a_subject()
     {
-        $this
-            ->interaction
+        $this->app->make(InteractionInterface::class)
             ->by($this->testUser)
             ->on($this->testPost)
             ->save('Log by test user for test post with description');
@@ -60,7 +51,7 @@ class InteractionTest extends IntegrationTestCase
     /** @test */
     public function log_can_have_properties()
     {
-        $this->interaction->with(['name' => 'Jane Doe'])->save('Log with properties');
+        $this->app->make(InteractionInterface::class)->with(['name' => 'Jane Doe'])->save('Log with properties');
 
         $interaction = \DB::table($this->interactionTable)->first();
         $this->assertEquals(json_encode(['name' => 'Jane Doe']), $interaction->properties);
@@ -70,11 +61,12 @@ class InteractionTest extends IntegrationTestCase
     /** @test */
     public function log_can_have_a_name()
     {
-        $this->interaction->in('inventory_updates')->save('Log with name');
+        $inventoryUpdateLog = new InventoryUpdateLog;
+        $this->app->make(InteractionInterface::class)->in($inventoryUpdateLog)->save('Log with name');
 
         $this->assertInteractionsTableHas([
             'description' => 'Log with name',
-            'log_name' => 'inventory_updates',
+            'log_name' => $inventoryUpdateLog->getName(),
         ]);
     }
 }

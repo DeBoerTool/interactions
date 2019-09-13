@@ -4,6 +4,7 @@ namespace Dbt\Interactions\Contracts;
 
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
+use Dbt\Interactions\Log;
 
 interface InteractionInterface
 {
@@ -25,9 +26,10 @@ interface InteractionInterface
 
     /**
      * The log name.
-     * @param string $logName
+     * 
+     * @param Dbt\Interactions\Log|string $log
      */
-    public function in(string $logName): self;
+    public function in($log): self;
 
     /**
      * Persist the change with optional description.

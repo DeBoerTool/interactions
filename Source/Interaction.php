@@ -66,9 +66,9 @@ class Interaction implements InteractionInterface
     /**
      * @inheritDoc
      */
-    public function in(string $logName): InteractionInterface
+    public function in($log): InteractionInterface
     {
-        $this->log = $logName;
+        $this->log = $log;
 
         return $this;
     }
