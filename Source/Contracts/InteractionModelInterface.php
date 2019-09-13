@@ -9,35 +9,32 @@ interface InteractionModelInterface
 {
     /**
      * The causer relationship
-     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
     public function causer(): MorphTo;
 
     /**
      * The subject relationship.
-     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
     public function subject(): MorphTo;
 
     /**
      * Get a property by name.
-     * @param string $key
      * @return mixed
      */
     public function property(string $key);
 
     /**
-     * @return \Illuminate\Support\Collection
+     * Get all the properties.
      */
     public function properties(): Collection;
 
     /**
-     * @return string
+     * Get the log name.
      */
     public function log(): string;
 
     /**
-     * @return string
+     * Get the description.
      */
     public function description(): string;
 
@@ -48,22 +45,16 @@ interface InteractionModelInterface
 
     /**
      * Set the properties.
-     * @param \Illuminate\Support\Collection $properties
-     * @return mixed
      */
-    public function setProperties(Collection $properties): InteractionModelInterface;
+    public function setProperties(Collection $properties): self;
 
     /**
      * Set the description.
-     * @param string $description
-     * @return \Dbt\Interfaces\Models\InteractionModelInterface
      */
-    public function setDescription(string $description): InteractionModelInterface;
+    public function setDescription(string $description): self;
 
     /**
      * Set the log name.
-     * @param string $log
-     * @return \Dbt\Interfaces\Models\InteractionModelInterface
      */
-    public function setLog(string $log): InteractionModelInterface;
+    public function setLog(string $log): self;
 }

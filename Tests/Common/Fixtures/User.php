@@ -1,6 +1,6 @@
 <?php
 
-namespace Dbt\Interactions\Tests;
+namespace Dbt\Interactions\Tests\Common\Fixtures;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
@@ -12,9 +12,12 @@ class User extends Model implements AuthorizableContract, AuthenticatableContrac
 {
     use Authorizable, Authenticatable;
 
+    /** @var array */
     protected $fillable = ['email'];
 
+    /** @var bool */
     public $timestamps = false;
 
+    /** @var string */
     protected $table = 'users';
 }

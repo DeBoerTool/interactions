@@ -1,17 +1,20 @@
 <?php
 
-namespace Dbt\Interactions\Tests\Feature;
+namespace Dbt\Interactions\Tests\Integration;
 
-use Dbt\Interactions\Activity;
+use Dbt\Interactions\InteractionModel;
 use Dbt\Interactions\Interaction;
+use Dbt\Interactions\Tests\Common\IntegrationTestCase;
 
-class InteractionTest extends TestCase
+class InteractionTest extends IntegrationTestCase
 {
+    /** @var \Dbt\Interactions\Interaction */
+    private $interaction;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->interaction = new Interaction(new Activity);
+        $this->interaction = new Interaction(new InteractionModel);
     }
 
     /** @test */

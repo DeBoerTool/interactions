@@ -6,6 +6,6 @@ coverage
 .idea/
 phpunit.*.xml
 phpunit.xml
-Reports/*
+Reports/
 !Reports/.gitkeep
 *.cache

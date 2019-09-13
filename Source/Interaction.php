@@ -19,16 +19,12 @@ class Interaction implements InteractionInterface
     /** @var \Illuminate\Database\Eloquent\Model */
     private $on;
 
-    /** @var \App\User */
+    /** @var Authenticatable|Model */
     private $user;
 
     /** @var string */
     private $log = 'default';
 
-    /**
-     * Constructor.
-     * @param \Dbt\Interfaces\Models\InteractionModelInterface $model
-     */
     public function __construct(InteractionModelInterface $model)
     {
         $this->model = $model;
@@ -36,8 +32,7 @@ class Interaction implements InteractionInterface
     }
 
     /**
-     * @param \Illuminate\Database\Eloquent\Model $model
-     * @return \Dbt\Interfaces\Services\InteractionInterface
+     * @inheritDoc
      */
     public function on(Model $model): InteractionInterface
     {
@@ -47,9 +42,7 @@ class Interaction implements InteractionInterface
     }
 
     /**
-     * The user that performed the interaction, if any.
-     * @param \Illuminate\Contracts\Auth\Authenticatable $user
-     * @return \Dbt\Interfaces\Services\InteractionInterface
+     * @inheritDoc
      */
     public function by(Authenticatable $user): InteractionInterface
     {
@@ -59,9 +52,7 @@ class Interaction implements InteractionInterface
     }
 
     /**
-     * An array of properties to serialize to persist, if any.
-     * @param array $properties
-     * @return \Dbt\Interfaces\Services\InteractionInterface
+     * @inheritDoc
      */
     public function with(array $properties): InteractionInterface
     {
@@ -73,9 +64,7 @@ class Interaction implements InteractionInterface
     }
 
     /**
-     * The log name.
-     * @param string $logName
-     * @return \Dbt\Interfaces\Services\InteractionInterface
+     * @inheritDoc
      */
     public function in(string $logName): InteractionInterface
     {
@@ -85,9 +74,7 @@ class Interaction implements InteractionInterface
     }
 
     /**
-     * Persist the change with optional description.
-     * @param string $description
-     * @return mixed
+     * @inheritDoc
      */
     public function save(string $description): InteractionModelInterface
     {
