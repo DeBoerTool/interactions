@@ -4,6 +4,7 @@ namespace Dbt\Interactions;
 
 use Dbt\Interactions\Contracts\InteractionModelInterface;
 use Dbt\Interactions\Contracts\InteractionInterface;
+use Dbt\Interactions\Contracts\LogInterface;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -67,7 +68,7 @@ class Interaction implements InteractionInterface
     /**
      * @inheritDoc
      */
-    public function in(Log $log): InteractionInterface
+    public function in(LogInterface $log): InteractionInterface
     {
         $this->log = $log;
 
