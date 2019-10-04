@@ -3,6 +3,7 @@
 namespace Dbt\Interactions;
 
 use Dbt\Interactions\Contracts\InteractionModelInterface;
+use Dbt\Interactions\Contracts\LogInterface;
 use Dbt\Interactions\Log;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -63,7 +64,7 @@ class InteractionModel extends Model implements InteractionModelInterface
     /**
      * @inheritDoc
      */
-    public function log(): Log
+    public function log(): LogInterface
     {
         return (new LogFactory())->create($this->log_name);
     }
@@ -99,7 +100,7 @@ class InteractionModel extends Model implements InteractionModelInterface
     /**
      * @inheritDoc
      */
-    public function setLog(Log $log): InteractionModelInterface
+    public function setLog(LogInterface $log): InteractionModelInterface
     {
         $this->setAttribute('log_name', $log->getName());
 
