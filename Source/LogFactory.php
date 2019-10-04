@@ -2,6 +2,7 @@
 
 namespace Dbt\Interactions;
 
+use Dbt\Interactions\Contracts\LogInterface;
 
 class LogFactory
 {
@@ -14,7 +15,7 @@ class LogFactory
         $this->logs = config('interaction.logs');
     }
 
-    public function create($name)
+    public function create($name) : LogInterface
     {
         foreach ($this->logs as $log) {
             $concrete = new $log;

@@ -32,7 +32,7 @@ interface InteractionModelInterface
     /**
      * Get the log name.
      */
-    public function log(): Log;
+    public function log(): LogInterface;
 
     /**
      * Get the description.
@@ -57,5 +57,5 @@ interface InteractionModelInterface
     /**
      * Set the log name.
      */
-    public function setLog(Log $log): self;
+    public function setLog(LogInterface $log): self;
 }
