@@ -29,7 +29,7 @@ class InteractionServiceProvider extends ServiceProvider
 
         $timestamp = date('Y_m_d_His', time());
         $this->publishes([
-            __DIR__ . '/../../Migrations/create_interactions_table.php' => database_path("/migrations/{$timestamp}_create_interactions_table.php"),
+            __DIR__ . '/../../Migrations/create_interactions_table.php.stub' => database_path("/migrations/{$timestamp}_create_interactions_table.php"),
         ], 'dbt-interactions-migration');
     }
 }
