@@ -2,7 +2,6 @@
 
 namespace Dbt\Interactions\Traits;
 
-use Dbt\Interactions\LogFactory;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -12,7 +11,7 @@ trait InteractionScopes
     /**
      * @param Authenticatable|Model $causer
      */
-    public function scopeCausedBy(Builder $query, Authenticatable $causer): Builder
+    public function scopeCausedBy (Builder $query, Authenticatable $causer): Builder
     {
         return $query
             ->where('causer_type', get_class($causer))
@@ -29,7 +28,7 @@ trait InteractionScopes
     /**
      * TODO: Check if this actually works.
      */
-    public function scopeCauserIs(Builder $query,  $model)
+    public function scopeCauserIs (Builder $query,  $model)
     {
         /**
          * TODO: Does this work for all polymorphic identities, eg, both FQCNs
@@ -39,7 +38,7 @@ trait InteractionScopes
     }
 
     /**
-     * @param  array|string  ...$logNames
+     * @param  array|string  ...$logs
      */
     public function scopeInLog(Builder $query, ...$logs): Builder
     {

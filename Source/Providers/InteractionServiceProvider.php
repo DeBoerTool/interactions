@@ -11,7 +11,10 @@ class InteractionServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../../Config/interaction.php', 'interaction');
+        $this->mergeConfigFrom(
+            __DIR__ . '/../../Config/interaction.php',
+            'interaction'
+        );
 
         $concretion = function () {
             return new Interaction(new InteractionModel());
@@ -28,6 +31,7 @@ class InteractionServiceProvider extends ServiceProvider
         ], 'dbt-interactions-config');
 
         $timestamp = date('Y_m_d_His', time());
+
         $this->publishes([
             __DIR__ . '/../../Migrations/create_interactions_table.php.stub' => database_path("/migrations/{$timestamp}_create_interactions_table.php"),
         ], 'dbt-interactions-migration');

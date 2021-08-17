@@ -3,9 +3,8 @@
 namespace Dbt\Interactions\Tests\Integration;
 
 use Dbt\Interactions\Contracts\InteractionInterface;
-use Dbt\Interactions\Log;
-use Dbt\Interactions\Tests\Common\Fixtures\Logs\InventoryUpdateLog;
-use Dbt\Interactions\Tests\Common\IntegrationTestCase;
+use Dbt\Interactions\Tests\Support\Fixtures\Logs\InventoryUpdateLog;
+use Dbt\Interactions\Tests\Support\IntegrationTestCase;
 
 class InteractionTest extends IntegrationTestCase
 {

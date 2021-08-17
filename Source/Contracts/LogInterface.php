@@ -4,5 +4,5 @@ namespace Dbt\Interactions\Contracts;
 
 interface LogInterface
 {
-    public function getName(): string;
+    public function getName (): string;
 }

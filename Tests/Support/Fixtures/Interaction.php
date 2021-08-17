@@ -1,6 +1,6 @@
 <?php
 
-namespace Dbt\Interactions\Tests\Common\Fixtures;
+namespace Dbt\Interactions\Tests\Support\Fixtures;
 
 use Dbt\Interactions\InteractionModel;
 use Dbt\Interactions\Traits\InteractionScopes;

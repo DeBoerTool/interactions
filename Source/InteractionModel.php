@@ -4,7 +4,6 @@ namespace Dbt\Interactions;
 
 use Dbt\Interactions\Contracts\InteractionModelInterface;
 use Dbt\Interactions\Contracts\LogInterface;
-use Dbt\Interactions\Log;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
@@ -13,11 +12,9 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
 /**
- * Class Activity
  * @property \Illuminate\Support\Collection properties
  * @property string description
  * @property string log_name
- * @package Dbt\Interactions
  * @method static Builder inLog($log)
  * @method static Builder causerIs($model)
  */
@@ -41,9 +38,7 @@ class InteractionModel extends Model implements InteractionModelInterface
         $this->table = config('interaction.table_name');
     }
 
-    /*
-     * Interface Api
-     */
+    // Interface API //
 
     /**
      * @inheritDoc
@@ -63,6 +58,7 @@ class InteractionModel extends Model implements InteractionModelInterface
 
     /**
      * @inheritDoc
+     * @throws \Exception
      */
     public function log(): LogInterface
     {

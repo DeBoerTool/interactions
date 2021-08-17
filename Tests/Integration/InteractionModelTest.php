@@ -3,13 +3,13 @@
 namespace Dbt\Interactions\Tests\Integration;
 
 use Dbt\Interactions\Interaction;
-use Dbt\Interactions\Tests\Common\Fixtures\User;
+use Dbt\Interactions\Tests\Support\Fixtures\User;
 use Dbt\Interactions\Contracts\InteractionInterface;
-use Dbt\Interactions\Tests\Common\IntegrationTestCase;
-use Dbt\Interactions\Tests\Common\Fixtures\Interaction as InteractionModel;
-use Dbt\Interactions\Tests\Common\Fixtures\Logs\PostLog;
-use Dbt\Interactions\Tests\Common\Fixtures\Logs\UserLog;
-use Dbt\Interactions\Tests\Common\Fixtures\Post;
+use Dbt\Interactions\Tests\Support\IntegrationTestCase;
+use Dbt\Interactions\Tests\Support\Fixtures\Interaction as InteractionModel;
+use Dbt\Interactions\Tests\Support\Fixtures\Logs\PostLog;
+use Dbt\Interactions\Tests\Support\Fixtures\Logs\UserLog;
+use Dbt\Interactions\Tests\Support\Fixtures\Post;
 
 class InteractionModelTest extends IntegrationTestCase
 {
