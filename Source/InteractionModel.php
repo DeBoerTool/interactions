@@ -22,7 +22,7 @@ class InteractionModel extends Model implements InteractionModelInterface
 {
     use SoftDeletes;
 
-    /** @var array */
+    /** @var array<string>|bool */
     public $guarded = [];
 
     /** @var array */
