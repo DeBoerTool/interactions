@@ -2,6 +2,10 @@
 
 namespace Dbt\Interactions\Tests\Support;
 
+use Dbt\Interactions\Log;
+use Dbt\Interactions\Tests\Support\Fixtures\Logs\UserLog;
+use Dbt\Interactions\Tests\Support\Fixtures\Logs\PostLog;
+use Dbt\Interactions\Tests\Support\Fixtures\Logs\InventoryUpdateLog;
 use Closure;
 use CreateInteractionsTable;
 use Dbt\Interactions\Providers\InteractionServiceProvider;
@@ -79,10 +83,10 @@ abstract class IntegrationTestCase extends TestCase
         $config->set('interaction.table_name', $this->table);
         $config->set('interaction.database_connection', $this->database);
         $config->set('interaction.logs', [
-            \Dbt\Interactions\Log::class,
-            \Dbt\Interactions\Tests\Support\Fixtures\Logs\UserLog::class,
-            \Dbt\Interactions\Tests\Support\Fixtures\Logs\PostLog::class,
-            \Dbt\Interactions\Tests\Support\Fixtures\Logs\InventoryUpdateLog::class,
+            Log::class,
+            UserLog::class,
+            PostLog::class,
+            InventoryUpdateLog::class,
         ]);
         $config->set('database.default', $this->database);
         $config->set('database.connections.' . $this->database, [

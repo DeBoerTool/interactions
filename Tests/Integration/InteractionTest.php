@@ -2,6 +2,7 @@
 
 namespace Dbt\Interactions\Tests\Integration;
 
+use DB;
 use Dbt\Interactions\Contracts\InteractionInterface;
 use Dbt\Interactions\Tests\Support\Fixtures\Logs\InventoryUpdateLog;
 use Dbt\Interactions\Tests\Support\IntegrationTestCase;
@@ -52,7 +53,7 @@ class InteractionTest extends IntegrationTestCase
     {
         $this->app->make(InteractionInterface::class)->with(['name' => 'Jane Doe'])->save('Log with properties');
 
-        $interaction = \DB::table($this->interactionTable)->first();
+        $interaction = DB::table($this->interactionTable)->first();
         $this->assertEquals(json_encode(['name' => 'Jane Doe']), $interaction->properties);
         $this->assertEquals('Log with properties', $interaction->description);
     }

@@ -1,5 +1,6 @@
 <?php
 
+use Dbt\Interactions\Log;
 return [
     /**
      * The container binding name when resolving out of the container with a
@@ -23,6 +24,6 @@ return [
     ),
 
     'logs' => [
-        Dbt\Interactions\Log::class,
+        Log::class,
     ]
 ];
