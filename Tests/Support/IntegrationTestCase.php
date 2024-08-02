@@ -2,20 +2,20 @@
 
 namespace Dbt\Interactions\Tests\Support;
 
-use Dbt\Interactions\Log;
-use Dbt\Interactions\Tests\Support\Fixtures\Logs\UserLog;
-use Dbt\Interactions\Tests\Support\Fixtures\Logs\PostLog;
-use Dbt\Interactions\Tests\Support\Fixtures\Logs\InventoryUpdateLog;
 use Closure;
 use CreateInteractionsTable;
+use Dbt\Interactions\Log;
 use Dbt\Interactions\Providers\InteractionServiceProvider;
 use Dbt\Interactions\Providers\MigrationsProvider;
+use Dbt\Interactions\Tests\Support\Fixtures\Logs\InventoryUpdateLog;
+use Dbt\Interactions\Tests\Support\Fixtures\Logs\PostLog;
+use Dbt\Interactions\Tests\Support\Fixtures\Logs\UserLog;
+use Dbt\Interactions\Tests\Support\Fixtures\Post;
 use Dbt\Interactions\Tests\Support\Fixtures\User;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\DatabaseManager as DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;
-use Dbt\Interactions\Tests\Support\Fixtures\Post;
 use Illuminate\Support\Str;
 use Orchestra\Testbench\TestCase;
 

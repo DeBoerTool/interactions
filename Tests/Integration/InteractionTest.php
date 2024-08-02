@@ -15,7 +15,7 @@ class InteractionTest extends IntegrationTestCase
         $this->app->make(InteractionInterface::class)->save('Test Interaction');
 
         $this->assertInteractionsTableHas([
-            'description' => 'Test Interaction'
+            'description' => 'Test Interaction',
         ]);
     }
 
@@ -27,7 +27,7 @@ class InteractionTest extends IntegrationTestCase
         $this->assertInteractionsTableHas([
             'description' => 'Log with test user',
             'causer_id' => $this->testUser->id,
-            'causer_type' => get_class($this->testUser)
+            'causer_type' => get_class($this->testUser),
         ]);
     }
 
@@ -61,7 +61,7 @@ class InteractionTest extends IntegrationTestCase
     /** @test */
     public function log_can_have_a_name()
     {
-        $inventoryUpdateLog = new InventoryUpdateLog;
+        $inventoryUpdateLog = new InventoryUpdateLog();
         $this->app->make(InteractionInterface::class)->in($inventoryUpdateLog)->save('Log with name');
 
         $this->assertInteractionsTableHas([

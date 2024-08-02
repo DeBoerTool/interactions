@@ -8,7 +8,7 @@ namespace Dbt\Interactions\Tests\Support;
  */
 trait LocalAssertions
 {
-    protected function assertInteractionsTableHas ($attributes)
+    protected function assertInteractionsTableHas($attributes)
     {
         $this->assertDatabaseHas($this->interactionTable, $attributes);
     }

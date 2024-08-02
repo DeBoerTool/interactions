@@ -15,6 +15,7 @@ use Illuminate\Support\Collection;
  * @property \Illuminate\Support\Collection properties
  * @property string description
  * @property string log_name
+ *
  * @method static Builder inLog($log)
  * @method static Builder causerIs($model)
  */
@@ -26,7 +27,7 @@ class InteractionModel extends Model implements InteractionModelInterface
     public $guarded = [];
 
     /** @var array */
-    protected $casts = ['properties' => 'collection',];
+    protected $casts = ['properties' => 'collection'];
 
     /** @var string */
     protected $causer = '';
@@ -41,7 +42,7 @@ class InteractionModel extends Model implements InteractionModelInterface
     // Interface API //
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function property(string $key)
     {
@@ -49,7 +50,7 @@ class InteractionModel extends Model implements InteractionModelInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function properties(): Collection
     {
@@ -57,7 +58,8 @@ class InteractionModel extends Model implements InteractionModelInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
+     *
      * @throws \Exception
      */
     public function log(): LogInterface
@@ -66,7 +68,7 @@ class InteractionModel extends Model implements InteractionModelInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function description(): string
     {
@@ -74,7 +76,7 @@ class InteractionModel extends Model implements InteractionModelInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function setProperties(Collection $properties): InteractionModelInterface
     {
@@ -84,7 +86,7 @@ class InteractionModel extends Model implements InteractionModelInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function setDescription(string $description): InteractionModelInterface
     {
@@ -94,7 +96,7 @@ class InteractionModel extends Model implements InteractionModelInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function setLog(LogInterface $log): InteractionModelInterface
     {
@@ -104,7 +106,7 @@ class InteractionModel extends Model implements InteractionModelInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function getExtraProperty($propertyName)
     {
@@ -113,6 +115,7 @@ class InteractionModel extends Model implements InteractionModelInterface
 
     /**
      * Get the changes attribute, used in model event context
+     *
      * @return \Illuminate\Support\Collection
      */
     public function getChangesAttribute()

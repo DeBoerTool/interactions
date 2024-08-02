@@ -2,8 +2,8 @@
 
 namespace Dbt\Interactions;
 
-use Dbt\Interactions\Contracts\InteractionModelInterface;
 use Dbt\Interactions\Contracts\InteractionInterface;
+use Dbt\Interactions\Contracts\InteractionModelInterface;
 use Dbt\Interactions\Contracts\LogInterface;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
@@ -12,14 +12,17 @@ use Illuminate\Support\Collection;
 class Interaction implements InteractionInterface
 {
     private InteractionModelInterface $model;
+
     private Collection $properties;
+
     private LogInterface $log;
-    private ?Model $on;
 
-    /** @var \Illuminate\Contracts\Auth\Authenticatable&\Illuminate\Database\Eloquent\Model|null  */
-    private ?Authenticatable $user;
+    private Model|null $on;
 
-    public function __construct (InteractionModelInterface $model)
+    /** @var \Illuminate\Contracts\Auth\Authenticatable&\Illuminate\Database\Eloquent\Model|null */
+    private Authenticatable|null $user;
+
+    public function __construct(InteractionModelInterface $model)
     {
         $this->model = $model;
         $this->properties = new Collection();
@@ -30,9 +33,9 @@ class Interaction implements InteractionInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    public function on (Model $model): self
+    public function on(Model $model): self
     {
         $this->on = $model;
 
@@ -40,9 +43,9 @@ class Interaction implements InteractionInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    public function by (Authenticatable $user): self
+    public function by(Authenticatable $user): self
     {
         $this->user = $user;
 
@@ -50,9 +53,9 @@ class Interaction implements InteractionInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    public function with (array $properties): self
+    public function with(array $properties): self
     {
         foreach ($properties as $key => $value) {
             $this->properties->put($key, $value);
@@ -62,9 +65,9 @@ class Interaction implements InteractionInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    public function in (LogInterface $log): self
+    public function in(LogInterface $log): self
     {
         $this->log = $log;
 
@@ -72,9 +75,9 @@ class Interaction implements InteractionInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    public function save (string $description): InteractionModelInterface
+    public function save(string $description): InteractionModelInterface
     {
         if ($this->on) {
             $this->model->subject()->associate($this->on);

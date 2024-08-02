@@ -3,17 +3,16 @@
 namespace Dbt\Interactions\Tests\Integration\Traits;
 
 use Dbt\Interactions\Contracts\InteractionInterface;
-use Dbt\Interactions\Tests\Support\Fixtures\Interaction as InteractionModel;
 use Dbt\Interactions\Interaction;
 use Dbt\Interactions\Tests\Support\Fixtures\Employee;
+use Dbt\Interactions\Tests\Support\Fixtures\Interaction as InteractionModel;
 use Dbt\Interactions\Tests\Support\Fixtures\Logs\PostLog;
 use Dbt\Interactions\Tests\Support\Fixtures\Logs\UserLog;
 use Dbt\Interactions\Tests\Support\Fixtures\User;
-use  Dbt\Interactions\Tests\Support\IntegrationTestCase;
+use Dbt\Interactions\Tests\Support\IntegrationTestCase;
 
 class InteractionScopesTest extends IntegrationTestCase
 {
-
     public function setUp(): void
     {
         parent::setUp();
@@ -25,10 +24,10 @@ class InteractionScopesTest extends IntegrationTestCase
     /** @test */
     public function scopes_the_interactions_by_log()
     {
-        $userLog = new UserLog;
+        $userLog = new UserLog();
 
         $this->app->make(InteractionInterface::class)->in($userLog)->save('New user added');
-        $this->app->make(InteractionInterface::class)->in(new PostLog)->save('New post added');
+        $this->app->make(InteractionInterface::class)->in(new PostLog())->save('New post added');
 
         $activities = InteractionModel::inLog($userLog)->get();
         $this->assertCount(1, $activities);
@@ -39,8 +38,8 @@ class InteractionScopesTest extends IntegrationTestCase
     {
         $john = User::query()->create(['email' => 'John@example.com']);
         $jane = User::query()->create(['email' => 'jane@example.com']);
-        $interactionByJohn = $this->app->make(InteractionInterface::class)->by($john)->in(new UserLog)->save('New user added');
-        $interactionByJane = $this->app->make(InteractionInterface::class)->by($jane)->in(new UserLog)->save('New user added');
+        $interactionByJohn = $this->app->make(InteractionInterface::class)->by($john)->in(new UserLog())->save('New user added');
+        $interactionByJane = $this->app->make(InteractionInterface::class)->by($jane)->in(new UserLog())->save('New user added');
 
         $johnsInteractions = InteractionModel::causedBy($john)->get();
 
@@ -64,9 +63,9 @@ class InteractionScopesTest extends IntegrationTestCase
         $jane = User::query()->create(['email' => 'jane@example.com']);
         $employee = Employee::query()->create(['email' => 'test-employee@example.com']);
 
-        $this->app->make(InteractionInterface::class)->by($john)->in(new UserLog)->save('New user added');
-        $this->app->make(InteractionInterface::class)->by($jane)->in(new UserLog)->save('New user added');
-        $this->app->make(InteractionInterface::class)->by($employee)->in(new UserLog)->save('New user added');
+        $this->app->make(InteractionInterface::class)->by($john)->in(new UserLog())->save('New user added');
+        $this->app->make(InteractionInterface::class)->by($jane)->in(new UserLog())->save('New user added');
+        $this->app->make(InteractionInterface::class)->by($employee)->in(new UserLog())->save('New user added');
 
         $interactionsByUser = InteractionModel::causerIs(User::class)->get();
 
