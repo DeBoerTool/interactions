@@ -2,6 +2,7 @@
 
 namespace Dbt\Interactions\Tests\Integration;
 
+use DB;
 use Dbt\Interactions\Contracts\InteractionInterface;
 use Dbt\Interactions\Tests\Support\Fixtures\Logs\InventoryUpdateLog;
 use Dbt\Interactions\Tests\Support\IntegrationTestCase;
@@ -14,7 +15,7 @@ class InteractionTest extends IntegrationTestCase
         $this->app->make(InteractionInterface::class)->save('Test Interaction');
 
         $this->assertInteractionsTableHas([
-            'description' => 'Test Interaction'
+            'description' => 'Test Interaction',
         ]);
     }
 
@@ -26,7 +27,7 @@ class InteractionTest extends IntegrationTestCase
         $this->assertInteractionsTableHas([
             'description' => 'Log with test user',
             'causer_id' => $this->testUser->id,
-            'causer_type' => get_class($this->testUser)
+            'causer_type' => get_class($this->testUser),
         ]);
     }
 
@@ -52,7 +53,7 @@ class InteractionTest extends IntegrationTestCase
     {
         $this->app->make(InteractionInterface::class)->with(['name' => 'Jane Doe'])->save('Log with properties');
 
-        $interaction = \DB::table($this->interactionTable)->first();
+        $interaction = DB::table($this->interactionTable)->first();
         $this->assertEquals(json_encode(['name' => 'Jane Doe']), $interaction->properties);
         $this->assertEquals('Log with properties', $interaction->description);
     }
@@ -60,7 +61,7 @@ class InteractionTest extends IntegrationTestCase
     /** @test */
     public function log_can_have_a_name()
     {
-        $inventoryUpdateLog = new InventoryUpdateLog;
+        $inventoryUpdateLog = new InventoryUpdateLog();
         $this->app->make(InteractionInterface::class)->in($inventoryUpdateLog)->save('Log with name');
 
         $this->assertInteractionsTableHas([

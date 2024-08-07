@@ -9,7 +9,7 @@ use Dbt\Interactions\Tests\Support\IntegrationTestCase;
 class ResolutionTest extends IntegrationTestCase
 {
     /** @test */
-    public function resolving_from_the_container (): void
+    public function resolving_from_the_container(): void
     {
         $concretion = resolve(InteractionInterface::class);
 

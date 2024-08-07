@@ -10,7 +10,7 @@ class LogFactory
     /** @var string[] */
     protected array $logs;
 
-    public function __construct ()
+    public function __construct()
     {
         $this->logs = config('interaction.logs') ?? [];
     }
@@ -18,11 +18,11 @@ class LogFactory
     /**
      * @throws \Exception
      */
-    public function create (string $name): LogInterface
+    public function create(string $name): LogInterface
     {
         foreach ($this->logs as $log) {
             /** @var \Dbt\Interactions\Contracts\LogInterface $concrete */
-            $concrete = new $log;
+            $concrete = new $log();
 
             if ($name === $concrete->getName()) {
                 return $concrete;

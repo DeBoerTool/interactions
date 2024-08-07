@@ -8,7 +8,7 @@ abstract class AbstractLog implements LogInterface
 {
     protected string $name = 'default';
 
-    public function getName (): string
+    public function getName(): string
     {
         return $this->name;
     }

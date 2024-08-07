@@ -11,7 +11,7 @@ trait InteractionScopes
     /**
      * @param Authenticatable|Model $causer
      */
-    public function scopeCausedBy (Builder $query, Authenticatable $causer): Builder
+    public function scopeCausedBy(Builder $query, Authenticatable $causer): Builder
     {
         return $query
             ->where('causer_type', get_class($causer))
@@ -28,17 +28,16 @@ trait InteractionScopes
     /**
      * TODO: Check if this actually works.
      */
-    public function scopeCauserIs (Builder $query,  $model)
+    public function scopeCauserIs(Builder $query, $model)
     {
         /**
          * TODO: Does this work for all polymorphic identities, eg, both FQCNs
-         *
          */
         return $query->where('causer_type', $model);
     }
 
     /**
-     * @param  array|string  ...$logs
+     * @param array|string ...$logs
      */
     public function scopeInLog(Builder $query, ...$logs): Builder
     {
