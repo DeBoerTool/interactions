@@ -33,7 +33,7 @@
     "orchestra/testbench": "^8.0|^9.0|^10.0",
     "phpunit/phpunit": "^10.5|^11.5",
     "rector/rector": "^1.2",
-    "vimeo/psalm": "^4.0"
+    "vimeo/psalm": "^6.0"
   },
   "autoload": {
     "psr-4": {
